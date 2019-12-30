@@ -87,6 +87,7 @@ class Trainer(object):
                 all_samples_data, all_paths = [], []
                 list_sampling_time, list_inner_step_time, list_outer_step_time, list_proc_samples_time = [], [], [], []
                 start_total_inner_time = time.time()
+                # Do one more loop to sample trajs with post-updated policy
                 for step in range(self.num_inner_grad_steps+1):
                     logger.log('** Step ' + str(step) + ' **')
 
@@ -94,6 +95,7 @@ class Trainer(object):
 
                     logger.log("Obtaining samples...")
                     time_env_sampling_start = time.time()
+                    # Step_0 does sampling with pre-updated policy
                     paths = self.sampler.obtain_samples(log=True, log_prefix='Step_%d-' % step)
                     list_sampling_time.append(time.time() - time_env_sampling_start)
                     all_paths.append(paths)
