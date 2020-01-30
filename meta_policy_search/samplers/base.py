@@ -104,7 +104,6 @@ class SampleProcessor(object):
             path["returns"] = utils.discount_cumsum(path["rewards"], self.discount)
 
         # 2) fit baseline estimator using the path returns and predict the return baselines
-        # Fit after predict
         self.baseline.fit(paths, target_key="returns")
         all_path_baselines = [self.baseline.predict(path) for path in paths]
 
