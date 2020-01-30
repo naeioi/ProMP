@@ -136,6 +136,10 @@ class MetaSampler(Sampler):
 
         return paths
 
+    def close(self):
+        if self.parallel:
+            self.vec_env.close()
+
     def _handle_info_dicts(self, agent_infos, env_infos):
         if not env_infos:
             env_infos = [dict() for _ in range(self.vec_env.num_envs)]

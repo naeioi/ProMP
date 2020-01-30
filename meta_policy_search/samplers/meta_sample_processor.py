@@ -2,9 +2,9 @@ from meta_policy_search.samplers.base import SampleProcessor
 from meta_policy_search.samplers.dice_sample_processor import DiceSampleProcessor
 from meta_policy_search.utils import utils
 import numpy as np
+import copy
 
 class MetaSampleProcessor(SampleProcessor):
-
     def process_samples(self, paths_meta_batch, log=False, log_prefix=''):
         """
         Processes sampled paths. This involves:
@@ -28,8 +28,7 @@ class MetaSampleProcessor(SampleProcessor):
         samples_data_meta_batch = []
         all_paths = []
 
-        for meta_task, paths in paths_meta_batch.items():
-
+        for i, (meta_task, paths) in enumerate(paths_meta_batch.items()):
             # fits baseline, compute advantages and stack path data
             samples_data, paths = self._compute_samples_data(paths)
 
