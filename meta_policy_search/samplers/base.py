@@ -147,6 +147,10 @@ class SampleProcessor(object):
             logger.logkv(log_prefix + 'StdReturn', np.std(undiscounted_returns))
             logger.logkv(log_prefix + 'MaxReturn', np.max(undiscounted_returns))
             logger.logkv(log_prefix + 'MinReturn', np.min(undiscounted_returns))
+            if 'success' in paths[0]['env_infos']:
+                successes = [path['env_infos']['success'].any() for path in paths]
+                logger.logkv(log_prefix + 'SuccessRate', np.mean(successes))
+        
 
     def _compute_advantages(self, paths, all_path_baselines):
         assert len(paths) == len(all_path_baselines)
