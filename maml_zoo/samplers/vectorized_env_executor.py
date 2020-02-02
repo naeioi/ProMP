@@ -166,6 +166,10 @@ class MAMLParallelEnvExecutor(object):
         for remote in self.remotes:
             remote.recv()
 
+    def close(self):
+        for ps in self.ps:
+            ps.terminate()
+
     @property
     def num_envs(self):
         """
